@@ -35,7 +35,7 @@ deploy2init() {
     PROCESS=appname
     APP_HOME=/home/my/system/app
     TOMCAT_HOME=/usr/local/tomcat7
-    JAVA_OPTS_TMP="-Dfile.encoding=UTF-8 -Xms1024m -Xmx1024m -Xmn512m -XX:PermSize=256m -server -XX:-OmitStackTraceInFastThrow -XX:MaxTenuringThreshold=15 -XX:+DisableExplicitGC -XX:+UseConcMarkSweepGC  -XX:+CMSParallelRemarkEnabled -XX:SurvivorRatio=8 -XX:CMSInitiatingOccupancyFraction=70 -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:$CATALINA_BASE/logs/gc.log -XX:+HeapDumpOnOutOfMemoryError"
+    JAVA_OPTS_TMP="-Dfile.encoding=UTF-8 -Xms1024m -Xmx1024m -Xmn512m -XX:PermSize=256m -server -XX:-OmitStackTraceInFastThrow -XX:MaxTenuringThreshold=15 -XX:+DisableExplicitGC -XX:+UseConcMarkSweepGC  -XX:+CMSParallelRemarkEnabled -XX:SurvivorRatio=8 -XX:CMSInitiatingOccupancyFraction=70 -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:$APP_HOME/gc.log -XX:+HeapDumpOnOutOfMemoryError"
 
     # app项目目录
     export CATALINA_BASE=$APP_HOME
