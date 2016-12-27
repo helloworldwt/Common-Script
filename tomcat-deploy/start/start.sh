@@ -31,9 +31,19 @@ case "$action" in
 esac
 
 deploy2init() {
-    # 服务名称
+    # 程序名称,项目目录,tomcat目录,jvm参数
     PROCESS=appname
     APP_HOME=/home/my/system/app
+    TOMCAT_HOME=/usr/local/tomcat7
+    JAVA_OPTS_TMP="-Dfile.encoding=UTF-8 -Xms1024m -Xmx1024m -Xmn512m -XX:PermSize=256m -server -XX:-OmitStackTraceInFastThrow -XX:MaxTenuringThreshold=15 -XX:+DisableExplicitGC -XX:+UseConcMarkSweepGC  -XX:+CMSParallelRemarkEnabled -XX:SurvivorRatio=8 -XX:CMSInitiatingOccupancyFraction=70 -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:$CATALINA_BASE/logs/gc.log -XX:+HeapDumpOnOutOfMemoryError"
+
+    # app项目目录
+    export CATALINA_BASE=$APP_HOME
+    # tomcat目录
+    export CATALINA_HOME=$TOMCAT_HOME
+    # jvm 参数
+    export JAVA_OPTS=$JAVA_OPTS_TMP
+
     # copy app file
     WARNAME=$PROCESS.war
     rm -rf ./webapps/ROOT/*
@@ -42,16 +52,6 @@ deploy2init() {
     source /etc/profile
     jar -xvf $WARNAME
 	rm -f $WARNAME
-
-    JAVA_OPTS_TMP="-Dfile.encoding=UTF-8 -Xms1024m -Xmx1024m -Xmn512m -XX:PermSize=256m -server -XX:-OmitStackTraceInFastThrow -XX:MaxTenuringThreshold=15 -XX:+DisableExplicitGC -XX:+UseConcMarkSweepGC  -XX:+CMSParallelRemarkEnabled -XX:SurvivorRatio=8 -XX:CMSInitiatingOccupancyFraction=70 -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:$CATALINA_BASE/logs/gc.log -XX:+HeapDumpOnOutOfMemoryError -Dlog4j.dir=$APP_HOME/logs"
-
-    # app项目目录
-    export CATALINA_BASE="$APP_HOME"
-    # tomcat目录
-    export CATALINA_HOME="/usr/local/tomcat7"
-
-    # 可选
-    export JAVA_OPTS=$JAVA_OPTS_TMP
 }
 
 start() {
